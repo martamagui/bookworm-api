@@ -1,7 +1,8 @@
 import { Router, Request, Response } from "express";
-
+//Inner imports
 import UserGetController from "./../controllers/user/get/userGet";
 import UserPostController from "./../controllers/user/post/userPost";
+import UserDeleteController from "../controllers/user/delete/userDelete";
 
 export class UserRoutes {
   router: Router;
@@ -35,5 +36,8 @@ export class UserRoutes {
     });
     //----------------- PUT
     //----------------- DELETE
+    this.router.delete("/user", (req: Request, res: Response) => {
+      UserDeleteController.delete(req, res);
+    });
   }
 }

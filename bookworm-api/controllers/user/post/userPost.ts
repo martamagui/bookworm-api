@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-
 //Inner imports
 import User from "../../../models/User";
 
