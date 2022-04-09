@@ -1,7 +1,6 @@
 import { model, Schema, Document } from "mongoose";
 
 export interface Review extends Document {
-  id: number;
   userId: string;
   boookTitle: string;
   bookAuthor: string;
@@ -14,11 +13,6 @@ export interface Review extends Document {
   hastags: [string];
 }
 const reviewSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
   userId: {
     type: String,
     required: true,

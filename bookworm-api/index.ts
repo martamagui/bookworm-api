@@ -1,9 +1,11 @@
 import express, { application } from "express";
-const app =  express();
-app.use(express.json())
+import cors from "cors";
 
-const PORT = 3000 // TODO OR
+const app = express();
+app.use(express.json());
 
-app.get('./',(req, res)=>{
-    console.log('Executing server...')
-})
+const PORT = 3000; // TODO OR
+
+app.get("./", (req, res) => {
+  console.log("Executing server...");
+});

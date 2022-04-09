@@ -1,7 +1,7 @@
 import { model, Schema, Document } from "mongoose";
 
 export interface Comment extends Document {
-  reviewId: number;
+  reviewId: string;
   userId: string;
   userName: string;
   date: string | Date;
@@ -10,7 +10,7 @@ export interface Comment extends Document {
 
 const commentSchema = new Schema({
   reviewId: {
-    type: Number,
+    type: String,
     required: true,
   },
   userId: {
