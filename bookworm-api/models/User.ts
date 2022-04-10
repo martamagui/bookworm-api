@@ -16,7 +16,6 @@ export interface User extends Document {
   avatar: string;
   reviews: [string];
   following: [string];
-  followed: [string];
   //Other
   subscribedToNewsLetter: boolean;
   savedReviewsIds: [number];
@@ -73,10 +72,6 @@ const userSchema = new Schema({
     required: true,
   },
   following: {
-    type: [String],
-    required: true,
-  },
-  followed: {
     type: [String],
     required: true,
   },
