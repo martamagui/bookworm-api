@@ -1,2 +1,5 @@
 node_modules
 .env
+bookworm-api/configuration/configuration.ts
+dist/
+bookworm-api/configuration/configuration.ts
