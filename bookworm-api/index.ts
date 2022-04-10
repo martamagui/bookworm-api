@@ -1,15 +1,10 @@
 import express, { Application } from "express";
 import { connect } from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
+import dotenv, { config } from "dotenv";
 //Routes
 import { UserRoutes } from "./routes/UserRouter";
 
-const app = express();
-
-app.use(express.json());
-
-const PORT = 3000; // TODO OR
 
 class Index{
   app: Application
@@ -17,9 +12,32 @@ class Index{
   constructor(){
     this.app = express();
     this.routes();
+    this.generalConfiguration();
+  }
+  public generalConfiguration(){
+    dotenv.config();
+    this.app.use(cors());
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({extended: false}))
+  }
+  public configuration(){
+    const port = config.PORT;
+    this.app.set("port", port);
+    this.app.listen(port, () => {
+      console.log("Server listening on port: ", port);
+    });
+
+  }
+
+  public dbConfig(){
+    console.log("Connection stablished with MongoDB");
+    new Index();
   }
 
   public routes(){
     this.app.use(new UserRoutes().router);
   }
+
+
 }
+new Index();
