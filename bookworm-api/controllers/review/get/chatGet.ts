@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import Chat from "../../../models/Chat";
 
 class ChatGetController {
-  public async byId(req: Request, res: Response) {
+  public async byChatId(req: Request, res: Response) {
     try {
       const chat = await Chat.findById(req.params.chatId);
       if (chat) {

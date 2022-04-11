@@ -23,3 +23,4 @@ class ChatPutController {
     }
   }
 }
+export default new ChatPutController();

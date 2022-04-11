@@ -1,3 +1,4 @@
+import { ChatRoutes } from "./routes/ChatRoutes";
 import express, { Application } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -38,6 +39,7 @@ class Index {
       res.send("invaild endpoint");
     });
     this.app.use(this.apiV1, new UserRoutes().router);
+    this.app.use(this.apiV1, new ChatRoutes().router);
   }
 }
 
