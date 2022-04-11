@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
 //Inner imports
-import ChatGetController from "../controllers/review/get/chatGet";
-import ChatPostController from "../controllers/review/post/chatPost";
-import ChatPutController from "../controllers/review/put/chatPut";
+import ChatGetController from "../controllers/chat/get/chatGet";
+import ChatPostController from "../controllers/chat/post/chatPost";
+import ChatPutController from "../controllers/chat/put/chatPut";
 
 export class ChatRoutes {
   router: Router;
