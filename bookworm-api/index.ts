@@ -9,11 +9,13 @@ import { dbConnection } from "./db/dbConnection";
 
 class Index {
   app: Application;
+  private apiV1 = "/api/v1";
 
   constructor() {
     this.app = express();
-    this.routes();
     this.generalConfiguration();
+    this.configuration();
+    this.routes();
   }
 
   public generalConfiguration() {
@@ -32,11 +34,15 @@ class Index {
   }
 
   public routes() {
-    this.app.use(new UserRoutes().router);
+    this.app.get("/", (req, res) => {
+      res.send("invaild endpoint");
+    });
+    this.app.use(this.apiV1, new UserRoutes().router);
   }
 }
 
 dbConnection.then(() => {
   console.log("Connected with DB.");
+  console.log(configuration.PORT);
   new Index();
 });

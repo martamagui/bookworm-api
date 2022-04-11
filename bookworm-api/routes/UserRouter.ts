@@ -18,7 +18,7 @@ export class UserRoutes {
       UserGetController.byEmail(req, res);
     });
     //List
-    this.router.get("/user/list", (req: Request, res: Response) => {
+    this.router.get("/user", (req: Request, res: Response) => {
       UserGetController.unfiltered(req, res);
     });
     this.router.get("/user/list-ids", (req: Request, res: Response) => {
@@ -48,9 +48,12 @@ export class UserRoutes {
     this.router.put("/user/update-email", (req: Request, res: Response) => {
       UserPutController.modifyEmail(req, res);
     });
-    this.router.put("/user/update-description", (req: Request, res: Response) => {
-      UserPutController.modifyProfileDescription(req, res);
-    });
+    this.router.put(
+      "/user/update-description",
+      (req: Request, res: Response) => {
+        UserPutController.modifyProfileDescription(req, res);
+      }
+    );
     this.router.put("/user/update-avatar", (req: Request, res: Response) => {
       UserPutController.modifyAvatar(req, res);
     });
@@ -60,11 +63,17 @@ export class UserRoutes {
     this.router.put("/user/update-following", (req: Request, res: Response) => {
       UserPutController.modifyFollowing(req, res);
     });
-    this.router.put("/user/update-newsletter", (req: Request, res: Response) => {
-      UserPutController.subscribeUnsubscribeToNewsLetter(req, res);
-    });
-    this.router.put("/user/update-savedReviews", (req: Request, res: Response) => {
-      UserPutController. modifySavedReviews(req, res);
-    });
+    this.router.put(
+      "/user/update-newsletter",
+      (req: Request, res: Response) => {
+        UserPutController.subscribeUnsubscribeToNewsLetter(req, res);
+      }
+    );
+    this.router.put(
+      "/user/update-savedReviews",
+      (req: Request, res: Response) => {
+        UserPutController.modifySavedReviews(req, res);
+      }
+    );
   }
 }
