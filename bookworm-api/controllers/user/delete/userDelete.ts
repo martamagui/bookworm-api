@@ -9,10 +9,10 @@ class UserDeleteController {
       if (user) {
         return res.status(202).json("User deleted");
       }
-      return res.status(404).json("No user not found.");
+      return res.status(400).json({ message: "User not found." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Request error.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 }

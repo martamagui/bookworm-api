@@ -37,40 +37,55 @@ export class UserRoutes {
     });
 
     //----------------- DELETE
-    this.router.delete("/user", (req: Request, res: Response) => {
+    this.router.delete("/user//:userId", (req: Request, res: Response) => {
       UserDeleteController.delete(req, res);
     });
 
     //----------------- PUT
-    this.router.put("/user/update-password", (req: Request, res: Response) => {
-      UserPutController.modifyPassword(req, res);
-    });
-    this.router.put("/user/update-email", (req: Request, res: Response) => {
-      UserPutController.modifyEmail(req, res);
-    });
     this.router.put(
-      "/user/update-description",
+      "/user/update-password/:userId",
+      (req: Request, res: Response) => {
+        UserPutController.modifyPassword(req, res);
+      }
+    );
+    this.router.put(
+      "/user/update-email/:userId",
+      (req: Request, res: Response) => {
+        UserPutController.modifyEmail(req, res);
+      }
+    );
+    this.router.put(
+      "/user/update-description/:userId",
       (req: Request, res: Response) => {
         UserPutController.modifyProfileDescription(req, res);
       }
     );
-    this.router.put("/user/update-avatar", (req: Request, res: Response) => {
-      UserPutController.modifyAvatar(req, res);
-    });
-    this.router.put("/user/update-userName", (req: Request, res: Response) => {
-      UserPutController.modifyUserName(req, res);
-    });
-    this.router.put("/user/update-following", (req: Request, res: Response) => {
-      UserPutController.modifyFollowing(req, res);
-    });
     this.router.put(
-      "/user/update-newsletter",
+      "/user/update-avatar/:userId",
+      (req: Request, res: Response) => {
+        UserPutController.modifyAvatar(req, res);
+      }
+    );
+    this.router.put(
+      "/user/update-userName/:userId",
+      (req: Request, res: Response) => {
+        UserPutController.modifyUserName(req, res);
+      }
+    );
+    this.router.put(
+      "/user/update-following/:userId",
+      (req: Request, res: Response) => {
+        UserPutController.modifyFollowing(req, res);
+      }
+    );
+    this.router.put(
+      "/user/update-newsletter/:userId",
       (req: Request, res: Response) => {
         UserPutController.subscribeUnsubscribeToNewsLetter(req, res);
       }
     );
     this.router.put(
-      "/user/update-savedReviews",
+      "/user/update-savedReviews/:userId",
       (req: Request, res: Response) => {
         UserPutController.modifySavedReviews(req, res);
       }

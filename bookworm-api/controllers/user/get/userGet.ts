@@ -10,10 +10,10 @@ class UserGetController {
       if (user) {
         return res.status(200).json(user);
       }
-      return res.status(404).json("No user was found.");
+      return res.status(404).json({ message: "User not found" });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Request error.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -23,10 +23,10 @@ class UserGetController {
       if (user) {
         return res.status(200).json(user);
       }
-      return res.status(404).json("No users were found.");
+      return res.status(404).json({ message: "User not found" });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Request error.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -37,10 +37,10 @@ class UserGetController {
       if (users) {
         return res.status(200).json(users);
       }
-      return res.status(404).json("No users were found.");
+      return res.status(404).json({ message: "User not found" });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Request error.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -52,10 +52,10 @@ class UserGetController {
       if (users) {
         return res.status(200).json(users);
       }
-      return res.status(404).json("No users were found.");
+      return res.status(404).json({ message: "User not found" });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Request error.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -67,10 +67,10 @@ class UserGetController {
       if (users) {
         return res.status(200).json(users);
       }
-      return res.status(404).json("No users were found.");
+      return res.status(404).json({ message: "User not found" });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Request error.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 }

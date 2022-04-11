@@ -10,10 +10,10 @@ class UserPostController {
         await user.save();
         return res.status(200).json(user);
       }
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 }

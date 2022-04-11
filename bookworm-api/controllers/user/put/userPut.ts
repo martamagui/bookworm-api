@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import User from "../../../models/User";
 
 class UserPutController {
-
   public async modifyPassword(req: Request, res: Response) {
     try {
       const user = await User.findOneAndUpdate(
@@ -15,10 +14,10 @@ class UserPutController {
       if (user) {
         return res.status(200).json("ok");
       }
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -33,10 +32,10 @@ class UserPutController {
       if (user) {
         return res.status(200).json("ok");
       }
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -51,10 +50,10 @@ class UserPutController {
       if (user) {
         return res.status(200).json("ok");
       }
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -69,10 +68,10 @@ class UserPutController {
       if (user) {
         return res.status(200).json("ok");
       }
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -87,10 +86,10 @@ class UserPutController {
       if (user) {
         return res.status(200).json("ok");
       }
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -105,10 +104,10 @@ class UserPutController {
       if (user) {
         return res.status(200).json("ok");
       }
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -123,10 +122,10 @@ class UserPutController {
       if (user) {
         return res.status(200).json("ok");
       }
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
 
@@ -141,12 +140,11 @@ class UserPutController {
       if (user) {
         return res.status(200).json("ok");
       }
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json("Malformed body.");
+      return res.status(400).json({ message: "Error. Check console log." });
     }
   }
-
 }
 export default new UserPutController();
