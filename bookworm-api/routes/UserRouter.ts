@@ -10,7 +10,13 @@ export class UserRoutes {
 
   constructor() {
     this.router = Router();
-    //----------------- GET
+    this.gets();
+    this.post();
+    this.put();
+    this.delete();
+  }
+
+  private gets() {
     this.router.get("/user/:userId", (req: Request, res: Response) => {
       UserGetController.byId(req, res);
     });
@@ -30,18 +36,15 @@ export class UserRoutes {
         UserGetController.byName(req, res);
       }
     );
+  }
 
-    //----------------- POST
+  private post() {
     this.router.post("/user", (req: Request, res: Response) => {
       UserPostController.userPost(req, res);
     });
+  }
 
-    //----------------- DELETE
-    this.router.delete("/user//:userId", (req: Request, res: Response) => {
-      UserDeleteController.delete(req, res);
-    });
-
-    //----------------- PUT
+  private put() {
     this.router.put(
       "/user/update-password/:userId",
       (req: Request, res: Response) => {
@@ -90,5 +93,11 @@ export class UserRoutes {
         UserPutController.modifySavedReviews(req, res);
       }
     );
+  }
+
+  private delete() {
+    this.router.delete("/user//:userId", (req: Request, res: Response) => {
+      UserDeleteController.delete(req, res);
+    });
   }
 }
