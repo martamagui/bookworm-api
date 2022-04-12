@@ -1,9 +1,9 @@
 import { Router, Request, Response } from "express";
 //Inner imports
-import UserGetController from "./../controllers/user/get/userGet";
-import UserPostController from "./../controllers/user/post/userPost";
-import UserDeleteController from "../controllers/user/delete/userDelete";
-import UserPutController from "../controllers/user/put/userPut";
+import UserGetController from "../controllers/user/userGet";
+import UserPostController from "../controllers/user/userPost";
+import UserDeleteController from "../controllers/user/userDelete";
+import UserPutController from "../controllers/user/userPut";
 
 export class UserRoutes {
   router: Router;
