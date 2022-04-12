@@ -6,6 +6,7 @@ export default {
   PORT: Assigned port,
   DB_CONN:
     "DB connection",
+  KEY: "Your encryption key"
 };
 
 ```

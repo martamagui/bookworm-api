@@ -42,6 +42,9 @@ export class UserRoutes {
     this.router.post("/user", (req: Request, res: Response) => {
       UserPostController.userPost(req, res);
     });
+    this.router.post("/user/login", (req: Request, res: Response) => {
+      UserPostController.login(req, res);
+    });
   }
 
   private put() {
