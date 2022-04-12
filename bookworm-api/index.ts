@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import { UserRoutes } from "./routes/UserRouter";
 import { ReviewRoutes } from "./routes/ReviewRoutes";
 import { ChatRoutes } from "./routes/ChatRoutes";
+import { CommentRoutes } from "./routes/CommentRoutes";
+
 //Configuration
 import configuration from "./configuration/configuration";
 import { dbConnection } from "./db/dbConnection";
@@ -38,16 +40,16 @@ class Index {
 
   public routes() {
     this.app.get("/", (req, res) => {
-      res.send("invaild endpoint");
+      res.send("Invaild endpoint");
     });
     this.app.use(this.apiV1, new UserRoutes().router);
     this.app.use(this.apiV1, new ChatRoutes().router);
     this.app.use(this.apiV1, new ReviewRoutes().router);
+    this.app.use(this.apiV1, new CommentRoutes().router);
   }
 }
 
 dbConnection.then(() => {
   console.log("Connected with DB.");
-  console.log(configuration.PORT);
   new Index();
 });

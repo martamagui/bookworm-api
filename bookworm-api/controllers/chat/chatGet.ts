@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 //Internal
-import Chat from "../../../models/Chat";
+import Chat from "../../models/Chat";
 
 class ChatGetController {
   public async byChatId(req: Request, res: Response) {
@@ -9,10 +9,10 @@ class ChatGetController {
       if (chat) {
         return res.status(200).json(chat);
       }
-      return res.status(404).json({ message: "Chat not found" });
+      return res.status(404).json({ message: "Not found." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json({ message: "Error. Check console log." });
+      return res.status(404).json({ message: "Not found." });
     }
   }
   public async findChatsByUserId(req: Request, res: Response) {
@@ -23,10 +23,10 @@ class ChatGetController {
       if (chatList) {
         return res.status(200).json(chatList);
       }
-      return res.status(404).json({ message: "Chat not found" });
+      return res.status(404).json({ message: "Not found." });
     } catch (error) {
       console.log(error);
-      return res.status(400).json({ message: "Error. Check console log." });
+      return res.status(404).json({ message: "Not found." });
     }
   }
 }
