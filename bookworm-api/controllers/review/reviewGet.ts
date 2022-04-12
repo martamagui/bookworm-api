@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import { finished } from "nodemailer/lib/xoauth2";
 //Internal
-import Review from "../../../models/Review";
+import Review from "../../models/Review";
 
 class ReviewGetController {
   public async getAll(req: Request, res: Response) {
@@ -61,6 +60,7 @@ class ReviewGetController {
       return res.status(400).json({ message: "Error. Check console log." });
     }
   }
+
   public async getByHastag(req: Request, res: Response) {
     try {
       const reviews = await Review.find({

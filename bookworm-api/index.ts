@@ -1,10 +1,12 @@
-import { ChatRoutes } from "./routes/ChatRoutes";
 import express, { Application } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
 //Routes
 import { UserRoutes } from "./routes/UserRouter";
+import { ReviewRoutes } from "./routes/ReviewRoutes";
+import { ChatRoutes } from "./routes/ChatRoutes";
+//Configuration
 import configuration from "./configuration/configuration";
 import { dbConnection } from "./db/dbConnection";
 
@@ -15,7 +17,7 @@ class Index {
   constructor() {
     this.app = express();
     this.generalConfiguration();
-    this.configuration();
+    this.startServer();
     this.routes();
   }
 
@@ -26,7 +28,7 @@ class Index {
     this.app.use(express.urlencoded({ extended: false }));
   }
 
-  public configuration() {
+  public startServer() {
     const port = configuration.PORT;
     this.app.set("port", port);
     this.app.listen(port, () => {
@@ -40,6 +42,7 @@ class Index {
     });
     this.app.use(this.apiV1, new UserRoutes().router);
     this.app.use(this.apiV1, new ChatRoutes().router);
+    this.app.use(this.apiV1, new ReviewRoutes().router);
   }
 }
 
