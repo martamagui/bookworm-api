@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import jwt_decode from "jwt-decode";
-import configuration from "../configuration/configuration";
+import configuration from "../../configuration/configuration";
 
 export const userExtractor = (req: Request, res: Response) => {
   try {

@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
-import { generateToken } from "../../middleware/userEmmiter";
+import { crypted } from "../../middleware/cryptography/crypted";
+import { generateToken } from "../../middleware/token/userEmmiter";
+
 //Inner imports
 import User from "../../models/User";
 
 class UserPostController {
   public async userPost(req: Request, res: Response) {
     try {
-      const user = new User(req.body);
-      //TODO encrypt information
+      let user = new User(req.body);
       if (user) {
         await user.save();
         return res.status(200).json(user);

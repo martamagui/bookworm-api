@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { sign, SignOptions } from "jsonwebtoken";
 import jwt from "jsonwebtoken";
-import configuration from "../configuration/configuration";
+import configuration from "../../configuration/configuration";
 
 export function generateToken() {
   //TODO take in params ID y mail to create the custom token
