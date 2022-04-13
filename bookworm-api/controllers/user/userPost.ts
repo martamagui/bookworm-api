@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-import { crypted } from "../../middleware/cryptography/crypted";
-import { generateToken } from "../../middleware/token/userEmmiter";
-
 //Inner imports
+import { generateToken } from "../../middleware/token/userEmmiter";
 import User from "../../models/User";
 
 class UserPostController {
@@ -23,13 +21,19 @@ class UserPostController {
   public async login(req: Request, res: Response) {
     try {
       const user = await User.findOne({ email: req.body.email });
-      //TODO check decrypted pwd + mail
       if (user) {
-        return res.status(200).json({ token: generateToken() });
+        const correctCombination = await user.compareDB(req.body.password);
+        if (correctCombination) {
+          return res
+            .status(200)
+            .json({ token: generateToken(user._id, user.email) });
+        } else {
+          return res.status(401).json({ message: "Unauthorized" });
+        }
       }
-      return res.status(401).json({ message: "Unauthorized." });
+      return res.status(401).json({ message: "Unauthorized" });
     } catch (error) {
-      return res.status(401).json({ message: "Unauthorized." });
+      return res.status(401).json({ message: "Unauthorized" });
     }
   }
 }

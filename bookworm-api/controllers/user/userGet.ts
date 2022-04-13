@@ -5,8 +5,15 @@ import User from "../../models/User";
 class UserGetController {
   //Individual
   public async byId(req: Request, res: Response) {
+    //TODO if it's my own ID, show complete information. If it's not, limited content
     try {
-      const user = await User.findById(req.params.userId);
+      const user = await User.findById(req.params.userId).select([
+        "userName",
+        "description",
+        "avatar",
+        "following",
+        "reviews",
+      ]);
       if (user) {
         return res.status(200).json(user);
       }
@@ -33,7 +40,13 @@ class UserGetController {
   //Lists
   public async unfiltered(_req: Request, res: Response) {
     try {
-      const users = await User.find();
+      const users = await User.find().select([
+        "userName",
+        "description",
+        "avatar",
+        "following",
+        "reviews",
+      ]);
       if (users) {
         return res.status(200).json(users);
       }

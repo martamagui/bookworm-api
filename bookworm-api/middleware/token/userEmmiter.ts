@@ -3,11 +3,10 @@ import { sign, SignOptions } from "jsonwebtoken";
 import jwt from "jsonwebtoken";
 import configuration from "../../configuration/configuration";
 
-export function generateToken() {
-  //TODO take in params ID y mail to create the custom token
+export function generateToken(_id: string, email: string) {
   const payload = {
-    _id: "123456789",
-    email: "mail@mail.com",
+    _id: _id,
+    email: email,
   };
   return jwt.sign(payload, configuration.TOKEN_KEY, {
     expiresIn: 86400,

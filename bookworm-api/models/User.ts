@@ -1,6 +1,5 @@
 import { model, Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
-import { crypted } from "../middleware/cryptography/crypted";
 import { decrypted } from "../middleware/cryptography/decrypted";
 
 export interface User extends Document {
@@ -21,8 +20,8 @@ export interface User extends Document {
   //Other
   subscribedToNewsLetter: boolean;
   savedReviewsIds: [number];
+  compareDB: (password: string) => Boolean;
 }
-
 const userSchema = new Schema({
   //Required
   userName: {
@@ -86,19 +85,14 @@ userSchema.pre<User>("save", async function (next) {
   const user = this;
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(user.password, salt);
-  const hashMail = await bcrypt.hash(user.password, salt);
   user.password = hashPassword;
-  user.email = hashMail;
   next();
 });
 
-userSchema.methods.comparewithDB = async function (
-  email: string,
+userSchema.methods.compareDB = async function (
   password: string
 ): Promise<Boolean> {
-  return (
-    (await decrypted(password, this.password)) && decrypted(email, this.email)
-  );
+  return await decrypted(password, this.password);
 };
 
 export default model<User>("user", userSchema);
