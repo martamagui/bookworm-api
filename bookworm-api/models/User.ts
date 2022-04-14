@@ -21,6 +21,7 @@ export interface User extends Document {
   //Other
   subscribedToNewsLetter: boolean;
   savedReviewsIds: [number];
+  token: string;
   compareDB: (password: string) => Boolean;
 }
 const userSchema = new Schema({

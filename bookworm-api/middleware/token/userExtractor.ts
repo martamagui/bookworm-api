@@ -1,21 +1,24 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import jwt_decode from "jwt-decode";
 import configuration from "../../configuration/configuration";
 
-export const userExtractor = (req: Request, res: Response) => {
+export const userExtractor = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const auth = req.headers.authorization;
     if (auth == null) {
-      return "Invalid authorization or Token";
+      return res.status(401).json({ message: "Unauthorized." });
     }
     if (auth.toLowerCase().startsWith("bearer")) {
       const token = auth.slice("bearer".length).trim();
-
       if (jwt.verify(token, configuration.TOKEN_KEY)) {
-        const decoded = jwt_decode(req.params.token);
+        const decoded = jwt_decode(auth);
         const parsedToken = JSON.parse(JSON.stringify(decoded));
-        return parsedToken._id;
+        req.body.token = parsedToken;
       } else {
         return res.status(401).json({ message: "Unauthorized." });
       }
@@ -24,4 +27,5 @@ export const userExtractor = (req: Request, res: Response) => {
     console.log(error);
     return res.status(401).json({ message: "Unauthorized." });
   }
+  next();
 };

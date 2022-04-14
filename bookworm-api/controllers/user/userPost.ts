@@ -7,7 +7,11 @@ class UserPostController {
   public async userPost(req: Request, res: Response) {
     try {
       let user = new User(req.body);
+
       if (user) {
+        if (user.password.length < 6) {
+          return res.status(400).json({ message: "Password too short." });
+        }
         await user.save();
         return res.status(200).json(user);
       }
