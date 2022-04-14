@@ -10,7 +10,7 @@ class ChatPutController {
           _id: req.params.chatId,
         },
         {
-          messages: req.body.message,
+          $push: { messages: req.body.message },
         }
       );
       if (chat) {

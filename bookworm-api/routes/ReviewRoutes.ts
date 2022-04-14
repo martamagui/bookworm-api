@@ -4,7 +4,10 @@ import ReviewGetController from "../controllers/review/reviewGet";
 import ReviewPostController from "../controllers/review/reviewPost";
 import ReviewPutController from "../controllers/review/reviewPut";
 import ReviewDeleteController from "../controllers/review/reviewDelete";
+//Middlewares
+import { userExtractor } from "./../middleware/token/userExtractor";
 
+//TODO create a uservalidator for these Request post, put and delete
 export class ReviewRoutes {
   router: Router;
   constructor() {
@@ -38,18 +41,26 @@ export class ReviewRoutes {
     });
   }
   private post() {
-    this.router.post("/review", (req: Request, res: Response) => {
-      ReviewPostController.reviewPost(req, res);
-    });
+    this.router.post(
+      "/review",
+      userExtractor,
+      (req: Request, res: Response) => {
+        ReviewPostController.reviewPost(req, res);
+      }
+    );
   }
   private put() {
-    this.router.put("/review", (req: Request, res: Response) => {
+    this.router.put("/review", userExtractor, (req: Request, res: Response) => {
       ReviewPutController.editReview(req, res);
     });
   }
   private delete() {
-    this.router.delete("/review", (req: Request, res: Response) => {
-      ReviewDeleteController.delete(req, res);
-    });
+    this.router.delete(
+      "/review",
+      userExtractor,
+      (req: Request, res: Response) => {
+        ReviewDeleteController.delete(req, res);
+      }
+    );
   }
 }

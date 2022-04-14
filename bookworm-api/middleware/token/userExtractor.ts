@@ -16,9 +16,10 @@ export const userExtractor = async (
     if (auth.toLowerCase().startsWith("bearer")) {
       const token = auth.slice("bearer".length).trim();
       if (jwt.verify(token, configuration.TOKEN_KEY)) {
-        const decoded = jwt_decode(auth);
+        const decoded = jwt_decode(token);
         const parsedToken = JSON.parse(JSON.stringify(decoded));
         req.body.token = parsedToken;
+        console.log(req.body.token);
       } else {
         return res.status(401).json({ message: "Unauthorized." });
       }

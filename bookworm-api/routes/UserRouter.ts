@@ -1,11 +1,13 @@
-import { userExtractor } from "./../middleware/token/userExtractor";
 import { Router, Request, Response } from "express";
-//Inner imports
+//----- Inner imports
+//Routes
 import UserGetController from "../controllers/user/userGet";
 import UserPostController from "../controllers/user/userPost";
 import UserDeleteController from "../controllers/user/userDelete";
 import UserPutController from "../controllers/user/userPut";
+//Middlewares
 import { userValidator } from "../middleware/token/userValidator";
+import { userExtractor } from "./../middleware/token/userExtractor";
 
 export class UserRoutes {
   router: Router;
