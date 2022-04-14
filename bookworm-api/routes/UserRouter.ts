@@ -103,7 +103,7 @@ export class UserRoutes {
       }
     );
     this.router.put(
-      "/user/update-userName/:userId",
+      "/user/update-username/:userId",
       userExtractor,
       userValidator,
       (req: Request, res: Response) => {
@@ -135,7 +135,7 @@ export class UserRoutes {
       }
     );
     this.router.put(
-      "/user/saveReview/:reviewId",
+      "/user/save-review/:reviewId",
       userExtractor,
       userValidator,
       (req: Request, res: Response) => {
@@ -143,7 +143,7 @@ export class UserRoutes {
       }
     );
     this.router.put(
-      "/user/removeSavedReview/:userId",
+      "/user/remove-saved-review/:userId",
       userExtractor,
       userValidator,
       (req: Request, res: Response) => {
