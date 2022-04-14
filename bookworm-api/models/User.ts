@@ -15,6 +15,7 @@ export interface User extends Document {
   //Profile
   description: string;
   avatar: string;
+  banner: string;
   reviews: [string];
   following: [string];
   //Other
@@ -60,6 +61,10 @@ const userSchema = new Schema({
     required: true,
   },
   avatar: {
+    type: String,
+    required: true,
+  },
+  banner: {
     type: String,
     required: true,
   },

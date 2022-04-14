@@ -78,12 +78,12 @@ export class UserRoutes {
         UserPutController.modifyUserName(req, res);
       }
     );
-    this.router.put(
-      "/user/update-following/:userId",
-      (req: Request, res: Response) => {
-        UserPutController.modifyFollowing(req, res);
-      }
-    );
+    this.router.put("/user/follow/:userId", (req: Request, res: Response) => {
+      UserPutController.follow(req, res);
+    });
+    this.router.put("/user/unfollow/:userId", (req: Request, res: Response) => {
+      UserPutController.unfollow(req, res);
+    });
     this.router.put(
       "/user/update-newsletter/:userId",
       (req: Request, res: Response) => {
@@ -91,15 +91,21 @@ export class UserRoutes {
       }
     );
     this.router.put(
-      "/user/update-savedReviews/:userId",
+      "/user/saveReview/:reviewId",
       (req: Request, res: Response) => {
-        UserPutController.modifySavedReviews(req, res);
+        UserPutController.saveReview(req, res);
+      }
+    );
+    this.router.put(
+      "/user/removeSavedReview/:userId",
+      (req: Request, res: Response) => {
+        UserPutController.removeSavedReview(req, res);
       }
     );
   }
 
   private delete() {
-    this.router.delete("/user//:userId", (req: Request, res: Response) => {
+    this.router.delete("/user/:userId", (req: Request, res: Response) => {
       UserDeleteController.delete(req, res);
     });
   }

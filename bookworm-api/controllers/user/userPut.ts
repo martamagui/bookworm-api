@@ -44,7 +44,7 @@ class UserPutController {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         {
-          email: req.body.email,
+          description: req.body.description,
         }
       );
       if (user) {
@@ -62,7 +62,25 @@ class UserPutController {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         {
-          email: req.body.avatar,
+          avatar: req.body.avatar,
+        }
+      );
+      if (user) {
+        return res.status(200).json({ message: "Ok" });
+      }
+      return res.status(400).json({ message: "Error. Check console log." });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Error. Check console log." });
+    }
+  }
+
+  public async modifyBanner(req: Request, res: Response) {
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        {
+          banner: req.body.banner,
         }
       );
       if (user) {
@@ -80,7 +98,7 @@ class UserPutController {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         {
-          email: req.body.userName,
+          userName: req.body.userName,
         }
       );
       if (user) {
@@ -93,12 +111,34 @@ class UserPutController {
     }
   }
 
-  public async modifyFollowing(req: Request, res: Response) {
+  public async follow(req: Request, res: Response) {
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         {
-          email: req.body.following,
+          $push: {
+            following: req.body.following,
+          },
+        }
+      );
+      if (user) {
+        return res.status(200).json({ message: "Ok" });
+      }
+      return res.status(400).json({ message: "Error. Check console log." });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Error. Check console log." });
+    }
+  }
+
+  public async unfollow(req: Request, res: Response) {
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        {
+          $pull: {
+            following: req.body.following,
+          },
         }
       );
       if (user) {
@@ -116,7 +156,7 @@ class UserPutController {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         {
-          email: req.body.subscribedToNewsLetter,
+          subscribedToNewsLetter: req.body.subscribedToNewsLetter,
         }
       );
       if (user) {
@@ -129,12 +169,34 @@ class UserPutController {
     }
   }
 
-  public async modifySavedReviews(req: Request, res: Response) {
+  public async saveReview(req: Request, res: Response) {
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         {
-          email: req.body.savedReviewsIds,
+          $push: {
+            savedReviewsIds: req.body.reviewId,
+          },
+        }
+      );
+      if (user) {
+        return res.status(200).json({ message: "Ok" });
+      }
+      return res.status(400).json({ message: "Error. Check console log." });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Error. Check console log." });
+    }
+  }
+
+  public async removeSavedReview(req: Request, res: Response) {
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        {
+          $pull: {
+            savedReviewsIds: req.body.reviewId,
+          },
         }
       );
       if (user) {
