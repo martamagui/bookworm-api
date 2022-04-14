@@ -89,7 +89,7 @@ class UserGetController {
       const user = User.find({
         email: req.params.email,
       });
-      if (!user) {
+      if ((await user).length == 0) {
         return res.status(200).json({ message: "available" });
       }
       return res.status(200).json({ message: "unavailable" });
@@ -103,7 +103,7 @@ class UserGetController {
       const user = User.find({
         userName: req.params.userName,
       });
-      if (!user) {
+      if ((await user).length == 0) {
         return res.status(200).json({ message: "available" });
       }
       return res.status(200).json({ message: "unavailable" });
