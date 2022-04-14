@@ -31,7 +31,7 @@ export class ReviewRoutes {
       ReviewGetController.getByHastag(req, res);
     });
     this.router.get(
-      "/review/title/:boookTitle",
+      "/review/title/:bookTitle",
       (req: Request, res: Response) => {
         ReviewGetController.getByTitle(req, res);
       }
@@ -56,7 +56,7 @@ export class ReviewRoutes {
   }
   private delete() {
     this.router.delete(
-      "/review",
+      "/review/:chatId",
       userExtractor,
       (req: Request, res: Response) => {
         ReviewDeleteController.delete(req, res);

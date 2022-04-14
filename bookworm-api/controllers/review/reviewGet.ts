@@ -34,7 +34,7 @@ class ReviewGetController {
   public async getByTitle(req: Request, res: Response) {
     try {
       const reviews = await Review.find({
-        boookTitle: { $regex: req.params.boookTitle, $options: "i" },
+        boookTitle: { $regex: req.params.bookTitle, $options: "i" },
       });
       if (reviews) {
         return res.status(200).json(reviews);

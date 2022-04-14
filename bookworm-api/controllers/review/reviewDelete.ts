@@ -5,7 +5,7 @@ import Review from "../../models/Review";
 class ReviewDeleteController {
   public async delete(req: Request, res: Response) {
     try {
-      const review = await Review.findByIdAndDelete(req.params.reviewId);
+      const review = await Review.findByIdAndDelete(req.params.chatId);
       if (review) {
         return res.status(200).json({ message: "Deleted" });
       }
