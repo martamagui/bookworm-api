@@ -6,8 +6,8 @@ import ReviewPutController from "../controllers/review/reviewPut";
 import ReviewDeleteController from "../controllers/review/reviewDelete";
 //Middlewares
 import { userExtractor } from "./../middleware/token/userExtractor";
+import { userValidatorBody } from "../middleware/token/userValidatorBody";
 
-//TODO create a uservalidator for these Request post, put and delete
 export class ReviewRoutes {
   router: Router;
   constructor() {
@@ -44,13 +44,16 @@ export class ReviewRoutes {
     this.router.post(
       "/review",
       userExtractor,
+      userValidatorBody,
+      
       (req: Request, res: Response) => {
         ReviewPostController.reviewPost(req, res);
       }
     );
   }
   private put() {
-    this.router.put("/review", userExtractor, (req: Request, res: Response) => {
+    this.router.put("/review", userExtractor, userValidatorBody,
+    (req: Request, res: Response) => {
       ReviewPutController.editReview(req, res);
     });
   }
@@ -58,6 +61,7 @@ export class ReviewRoutes {
     this.router.delete(
       "/review/:chatId",
       userExtractor,
+      userValidatorBody, 
       (req: Request, res: Response) => {
         ReviewDeleteController.delete(req, res);
       }

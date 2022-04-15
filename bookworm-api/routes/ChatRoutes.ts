@@ -4,10 +4,11 @@ import ChatGetController from "../controllers/chat/chatGet";
 import ChatPostController from "../controllers/chat/chatPost";
 import ChatPutController from "../controllers/chat/chatPut";
 //Middlewares
-import { userValidator } from "../middleware/token/userValidator";
-import { userExtractor } from "./../middleware/token/userExtractor";
+import { userValidatorParams } from "../middleware/token/userValidatorParams";
+import { userExtractor } from "../middleware/token/userExtractor";
+import { userValidatorChat } from "../middleware/token/userValidatorChat";
 
-//TODO create a uservalidator for these Request post, put, delete
+
 export class ChatRoutes {
   router: Router;
 
@@ -22,7 +23,7 @@ export class ChatRoutes {
     this.router.get(
       "/chat/user-chat-list/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         ChatGetController.findChatsByUserId(req, res);
       }
@@ -32,7 +33,9 @@ export class ChatRoutes {
     });
   }
   private post() {
-    this.router.post("/chat", userExtractor, (req: Request, res: Response) => {
+    this.router.post("/chat", userExtractor,
+    userValidatorChat ,
+    (req: Request, res: Response) => {
       ChatPostController.chatPost(req, res);
     });
   }
@@ -40,6 +43,7 @@ export class ChatRoutes {
     this.router.post(
       "/chat/message/:chatId",
       userExtractor,
+      userValidatorChat,
       (req: Request, res: Response) => {
         ChatPutController.sendMessage(req, res);
       }

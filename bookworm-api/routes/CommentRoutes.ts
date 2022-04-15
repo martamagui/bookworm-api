@@ -3,10 +3,10 @@ import { Router, Request, Response } from "express";
 import CommentDeleteController from "../controllers/comment/deleteComment";
 import CommentGetController from "../controllers/comment/getComment";
 import CommentPostController from "../controllers/comment/postComment";
+import { userExtractor } from "../middleware/token/userExtractor";
+import { userValidatorBody } from "../middleware/token/userValidatorBody";
 //Middlewares
-import { userExtractor } from "./../middleware/token/userExtractor";
 
-//TODO create a uservalidator for these Request post, put, delete
 export class CommentRoutes {
   router: Router;
 
@@ -30,6 +30,7 @@ export class CommentRoutes {
     this.router.post(
       "review/comment",
       userExtractor,
+      userValidatorBody,
       (req: Request, res: Response) => {
         CommentPostController.post(req, res);
       }
@@ -40,6 +41,7 @@ export class CommentRoutes {
     this.router.delete(
       "review/comment",
       userExtractor,
+      userValidatorBody,
       (req: Request, res: Response) => {
         CommentDeleteController.delete(req, res);
       }

@@ -6,8 +6,8 @@ import UserPostController from "../controllers/user/userPost";
 import UserDeleteController from "../controllers/user/userDelete";
 import UserPutController from "../controllers/user/userPut";
 //Middlewares
-import { userValidator } from "../middleware/token/userValidator";
 import { userExtractor } from "./../middleware/token/userExtractor";
+import { userValidatorParams } from "../middleware/token/userValidatorParams";
 
 export class UserRoutes {
   router: Router;
@@ -30,7 +30,7 @@ export class UserRoutes {
     this.router.get(
       "/user/myProfile/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserGetController.myProfile(req, res);
       }
@@ -73,7 +73,7 @@ export class UserRoutes {
     this.router.put(
       "/user/update-password/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.modifyPassword(req, res);
       }
@@ -81,7 +81,7 @@ export class UserRoutes {
     this.router.put(
       "/user/update-email/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.modifyEmail(req, res);
       }
@@ -89,7 +89,7 @@ export class UserRoutes {
     this.router.put(
       "/user/update-description/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.modifyProfileDescription(req, res);
       }
@@ -97,7 +97,7 @@ export class UserRoutes {
     this.router.put(
       "/user/update-avatar/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.modifyAvatar(req, res);
       }
@@ -105,7 +105,7 @@ export class UserRoutes {
     this.router.put(
       "/user/update-username/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.modifyUserName(req, res);
       }
@@ -113,7 +113,7 @@ export class UserRoutes {
     this.router.put(
       "/user/follow/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.follow(req, res);
       }
@@ -121,7 +121,7 @@ export class UserRoutes {
     this.router.put(
       "/user/unfollow/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.unfollow(req, res);
       }
@@ -129,7 +129,7 @@ export class UserRoutes {
     this.router.put(
       "/user/update-newsletter/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.subscribeUnsubscribeToNewsLetter(req, res);
       }
@@ -137,7 +137,7 @@ export class UserRoutes {
     this.router.put(
       "/user/save-review/:reviewId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.saveReview(req, res);
       }
@@ -145,7 +145,7 @@ export class UserRoutes {
     this.router.put(
       "/user/remove-saved-review/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.removeSavedReview(req, res);
       }
@@ -156,7 +156,7 @@ export class UserRoutes {
     this.router.delete(
       "/user/:userId",
       userExtractor,
-      userValidator,
+      userValidatorParams,
       (req: Request, res: Response) => {
         UserDeleteController.delete(req, res);
       }
