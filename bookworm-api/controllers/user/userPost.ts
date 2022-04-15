@@ -13,7 +13,7 @@ class UserPostController {
           return res.status(400).json({ message: "Password too short." });
         }
         await user.save();
-        return res.status(200).json(user);
+        return res.status(200).json({ message: "Saved user." });
       }
       return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
