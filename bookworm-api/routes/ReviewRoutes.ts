@@ -17,10 +17,16 @@ export class ReviewRoutes {
     this.put();
     this.delete();
   }
+
   private gets() {
     this.router.get("/review", (req: Request, res: Response) => {
       ReviewGetController.getAll(req, res);
     });
+
+    this.router.get("/review/:id", (req: Request, res: Response) => {
+      ReviewGetController.getById(req, res);
+    });
+
     this.router.get(
       "/review/author/:bookAuthor",
       (req: Request, res: Response) => {
@@ -40,28 +46,35 @@ export class ReviewRoutes {
       ReviewGetController.getByUser(req, res);
     });
   }
+
   private post() {
     this.router.post(
       "/review",
       userExtractor,
       userValidatorBody,
-      
+
       (req: Request, res: Response) => {
         ReviewPostController.reviewPost(req, res);
       }
     );
   }
+
   private put() {
-    this.router.put("/review", userExtractor, userValidatorBody,
-    (req: Request, res: Response) => {
-      ReviewPutController.editReview(req, res);
-    });
+    this.router.put(
+      "/review",
+      userExtractor,
+      userValidatorBody,
+      (req: Request, res: Response) => {
+        ReviewPutController.editReview(req, res);
+      }
+    );
   }
+
   private delete() {
     this.router.delete(
       "/review/:chatId",
       userExtractor,
-      userValidatorBody, 
+      userValidatorBody,
       (req: Request, res: Response) => {
         ReviewDeleteController.delete(req, res);
       }

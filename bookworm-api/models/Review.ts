@@ -9,9 +9,10 @@ export interface Review extends Document {
   amazonLink: string;
   reviewDescription: string;
   date: string | Date;
-  likes: number;
+  likes: [string];
   hastags: [string];
 }
+
 const reviewSchema = new Schema({
   userId: {
     type: String,
@@ -47,8 +48,8 @@ const reviewSchema = new Schema({
     default: Date.now,
   },
   likes: {
-    type: Number,
-    required: true,
+    type: [String],
+    required: false,
   },
   hastags: {
     type: [String],

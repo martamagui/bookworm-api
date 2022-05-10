@@ -16,6 +16,21 @@ class ReviewGetController {
     }
   }
 
+  public async getById(req: Request, res: Response) {
+    try {
+      const reviews = await Review.findById({
+        _id: req.params.id,
+      });
+      if (reviews) {
+        return res.status(200).json(reviews);
+      }
+      return res.status(404).json({ message: "Reviews not found" });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Error. Check console log." });
+    }
+  }
+
   public async getByUser(req: Request, res: Response) {
     try {
       const reviews = await Review.find({
