@@ -10,26 +10,20 @@ class ReviewPutController {
         _id: req.params.reviewId,
       });
       if (review) {
+        let query = {};
         if (review?.likes.includes(req.body.token._id)) {
-          const like = await Review.findByIdAndUpdate(
-            {
-              _id: req.params.reviewId,
-            },
-            { $pull: { likes: req.body.token._id } }
-          );
-          if (like) {
-            return res.status(400).json({ message: "Ok" });
-          }
+          query = { $pull: { likes: req.body.token._id } };
         } else {
-          const like = await Review.findByIdAndUpdate(
-            {
-              _id: req.params.reviewId,
-            },
-            { $push: { likes: req.body.token._id } }
-          );
-          if (like) {
-            return res.status(400).json({ message: "Ok" });
-          }
+          query = { $push: { likes: req.body.token._id } };
+        }
+        const like = await Review.findByIdAndUpdate(
+          {
+            _id: req.params.reviewId,
+          },
+          query
+        );
+        if (like) {
+          return res.status(400).json({ message: "Ok" });
         }
       }
       return res.status(404).json({ message: "Review not found." });

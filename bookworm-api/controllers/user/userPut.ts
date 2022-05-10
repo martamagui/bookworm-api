@@ -171,36 +171,21 @@ class UserPutController {
 
   public async saveReview(req: Request, res: Response) {
     try {
-      const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
-        {
-          $push: {
-            savedReviewsIds: req.body.reviewId,
-          },
-        }
-      );
+      const user = await User.findById({ _id: req.body.token._id });
       if (user) {
-        return res.status(200).json({ message: "Ok" });
-      }
-      return res.status(400).json({ message: "Error. Check console log." });
-    } catch (error) {
-      console.log(error);
-      return res.status(400).json({ message: "Error. Check console log." });
-    }
-  }
-
-  public async removeSavedReview(req: Request, res: Response) {
-    try {
-      const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
-        {
-          $pull: {
-            savedReviewsIds: req.body.reviewId,
-          },
+        let query = {};
+        if (user.savedReviewsIds.includes(req.params.reviewId)) {
+          query = { $pull: { savedReviewsIds: req.params.reviewId } };
+        } else {
+          query = { $push: { savedReviewsIds: req.params.reviewId } };
         }
-      );
-      if (user) {
-        return res.status(200).json({ message: "Ok" });
+        const updated = await User.findByIdAndUpdate(
+          { _id: req.body.token._id },
+          query
+        );
+        if (updated) {
+          return res.status(200).json({ message: "Ok" });
+        }
       }
       return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {

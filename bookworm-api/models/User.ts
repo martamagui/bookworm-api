@@ -20,7 +20,7 @@ export interface User extends Document {
   following: [string];
   //Other
   subscribedToNewsLetter: boolean;
-  savedReviewsIds: [number];
+  savedReviewsIds: [string];
   token: string;
   compareDB: (password: string) => Boolean;
 }
@@ -83,7 +83,7 @@ const userSchema = new Schema({
     required: true,
   },
   savedReviewsIds: {
-    type: [Number],
+    type: [String],
   },
 });
 

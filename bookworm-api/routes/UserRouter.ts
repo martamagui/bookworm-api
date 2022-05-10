@@ -137,17 +137,8 @@ export class UserRoutes {
     this.router.put(
       "/user/save-review/:reviewId",
       userExtractor,
-      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.saveReview(req, res);
-      }
-    );
-    this.router.put(
-      "/user/remove-saved-review/:userId",
-      userExtractor,
-      userValidatorParams,
-      (req: Request, res: Response) => {
-        UserPutController.removeSavedReview(req, res);
       }
     );
   }
