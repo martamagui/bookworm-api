@@ -19,7 +19,7 @@ export const userExtractor = async (
         const decoded = jwt_decode(token);
         const parsedToken = JSON.parse(JSON.stringify(decoded));
         req.body.token = parsedToken;
-        console.log(req.body.token);
+        //console.log(req.body.token);
       } else {
         return res.status(401).json({ message: "Unauthorized." });
       }

@@ -18,11 +18,19 @@ class ReviewGetController {
 
   public async getById(req: Request, res: Response) {
     try {
-      const reviews = await Review.findById({
+      const review = await Review.findById({
         _id: req.params.id,
       });
-      if (reviews) {
-        return res.status(200).json(reviews);
+      if (review) {
+        let object: Record<string, any> = review;
+        if (object.likes.includes(req.body.token._id)) {
+          object = Object.assign(object, { liked: true });
+          return res.status(200).json(object);
+        } else {
+          object = Object.assign(object, { liked: false });
+          return res.status(200).json(object);
+        }
+        console.log(object.liked);
       }
       return res.status(404).json({ message: "Reviews not found" });
     } catch (error) {

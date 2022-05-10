@@ -23,9 +23,13 @@ export class ReviewRoutes {
       ReviewGetController.getAll(req, res);
     });
 
-    this.router.get("/review/:id", (req: Request, res: Response) => {
-      ReviewGetController.getById(req, res);
-    });
+    this.router.get(
+      "/review/:id",
+      userExtractor,
+      (req: Request, res: Response) => {
+        ReviewGetController.getById(req, res);
+      }
+    );
 
     this.router.get(
       "/review/author/:bookAuthor",
@@ -51,8 +55,6 @@ export class ReviewRoutes {
     this.router.post(
       "/review",
       userExtractor,
-      userValidatorBody,
-
       (req: Request, res: Response) => {
         ReviewPostController.reviewPost(req, res);
       }
@@ -61,11 +63,10 @@ export class ReviewRoutes {
 
   private put() {
     this.router.put(
-      "/review",
+      "/review/like/:reviewId",
       userExtractor,
-      userValidatorBody,
       (req: Request, res: Response) => {
-        ReviewPutController.editReview(req, res);
+        ReviewPutController.likeDislikeReview(req, res);
       }
     );
   }
