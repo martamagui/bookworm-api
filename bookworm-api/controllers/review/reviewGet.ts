@@ -1,11 +1,18 @@
 import { Request, Response } from "express";
 //Internal
 import Review from "../../models/Review";
+import User from "../../models/User";
 
 class ReviewGetController {
   public async getAll(req: Request, res: Response) {
     try {
-      const reviews = await Review.find();
+      const reviews = await Review.find()
+        .sort({ date: -1 })
+        .populate({
+          path: "userId",
+          model: User,
+          select: { userName: 1, avatar: 1 },
+        });
       if (reviews) {
         return res.status(200).json(reviews);
       }
@@ -20,7 +27,12 @@ class ReviewGetController {
     try {
       const review = await Review.findById({
         _id: req.params.id,
+      }).populate({
+        path: "userId",
+        model: User,
+        select: { userName: 1, avatar: 1 },
       });
+      console.log(review);
       if (review) {
         let object: Record<string, any> = review;
         if (object.likes.includes(req.body.token._id)) {
@@ -43,7 +55,13 @@ class ReviewGetController {
     try {
       const reviews = await Review.find({
         userId: req.params.userId,
-      });
+      })
+        .sort({ date: -1 })
+        .populate({
+          path: "userId",
+          model: User,
+          select: { userName: 1, avatar: 1 },
+        });
       if (reviews) {
         return res.status(200).json(reviews);
       }
@@ -58,7 +76,7 @@ class ReviewGetController {
     try {
       const reviews = await Review.find({
         boookTitle: { $regex: req.params.bookTitle, $options: "i" },
-      });
+      }).sort({ date: -1 });
       if (reviews) {
         return res.status(200).json(reviews);
       }
@@ -73,7 +91,7 @@ class ReviewGetController {
     try {
       const reviews = await Review.find({
         bookAuthor: { $regex: req.params.bookAuthor, $options: "i" },
-      });
+      }).sort({ date: -1 });
       if (reviews) {
         return res.status(200).json(reviews);
       }
@@ -88,7 +106,7 @@ class ReviewGetController {
     try {
       const reviews = await Review.find({
         hastags: req.params.hastags,
-      });
+      }).sort({ date: -1 });
       if (reviews) {
         return res.status(200).json(reviews);
       }
