@@ -71,15 +71,14 @@ export class UserRoutes {
 
   private put() {
     this.router.put(
-      "/user/update-password/:userId",
+      "/user/update-password",
       userExtractor,
-      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.modifyPassword(req, res);
       }
     );
     this.router.put(
-      "/user/update-email/:userId",
+      "/user/update-email",
       userExtractor,
       userValidatorParams,
       (req: Request, res: Response) => {
@@ -87,25 +86,29 @@ export class UserRoutes {
       }
     );
     this.router.put(
-      "/user/update-description/:userId",
+      "/user/update-description",
       userExtractor,
-      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.modifyProfileDescription(req, res);
       }
     );
     this.router.put(
-      "/user/update-avatar/:userId",
+      "/user/update-avatar",
       userExtractor,
-      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.modifyAvatar(req, res);
       }
     );
     this.router.put(
-      "/user/update-username/:userId",
+      "/user/update-banner",
       userExtractor,
-      userValidatorParams,
+      (req: Request, res: Response) => {
+        UserPutController.modifyBanner(req, res);
+      }
+    );
+    this.router.put(
+      "/user/update-username",
+      userExtractor,
       (req: Request, res: Response) => {
         UserPutController.modifyUserName(req, res);
       }
@@ -113,23 +116,13 @@ export class UserRoutes {
     this.router.put(
       "/user/follow/:userId",
       userExtractor,
-      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.follow(req, res);
       }
     );
     this.router.put(
-      "/user/unfollow/:userId",
+      "/user/update-newsletter",
       userExtractor,
-      userValidatorParams,
-      (req: Request, res: Response) => {
-        UserPutController.unfollow(req, res);
-      }
-    );
-    this.router.put(
-      "/user/update-newsletter/:userId",
-      userExtractor,
-      userValidatorParams,
       (req: Request, res: Response) => {
         UserPutController.subscribeUnsubscribeToNewsLetter(req, res);
       }
@@ -145,9 +138,8 @@ export class UserRoutes {
 
   private delete() {
     this.router.delete(
-      "/user/:userId",
+      "/user",
       userExtractor,
-      userValidatorParams,
       (req: Request, res: Response) => {
         UserDeleteController.delete(req, res);
       }

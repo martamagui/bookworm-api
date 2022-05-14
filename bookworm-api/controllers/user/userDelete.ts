@@ -5,7 +5,7 @@ import User from "../../models/User";
 class UserDeleteController {
   public async delete(req: Request, res: Response) {
     try {
-      const user = await User.findByIdAndDelete(req.params.userId);
+      const user = await User.findByIdAndDelete(req.body.token._id);
       if (user) {
         return res.status(202).json({ message: "Deleted" });
       }

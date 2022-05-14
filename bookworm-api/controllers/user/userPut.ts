@@ -6,7 +6,7 @@ class UserPutController {
   public async modifyPassword(req: Request, res: Response) {
     try {
       const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
+        { _id: req.body.token._id },
         {
           password: req.body.password,
         }
@@ -24,7 +24,7 @@ class UserPutController {
   public async modifyEmail(req: Request, res: Response) {
     try {
       const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
+        { _id: req.body.token._id },
         {
           email: req.body.email,
         }
@@ -42,7 +42,7 @@ class UserPutController {
   public async modifyProfileDescription(req: Request, res: Response) {
     try {
       const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
+        { _id: req.body.token._id },
         {
           description: req.body.description,
         }
@@ -60,7 +60,7 @@ class UserPutController {
   public async modifyAvatar(req: Request, res: Response) {
     try {
       const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
+        { _id: req.body.token._id },
         {
           avatar: req.body.avatar,
         }
@@ -78,7 +78,7 @@ class UserPutController {
   public async modifyBanner(req: Request, res: Response) {
     try {
       const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
+        { _id: req.body.token._id },
         {
           banner: req.body.banner,
         }
@@ -96,7 +96,7 @@ class UserPutController {
   public async modifyUserName(req: Request, res: Response) {
     try {
       const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
+        { _id: req.body.token._id },
         {
           userName: req.body.userName,
         }
@@ -113,36 +113,31 @@ class UserPutController {
 
   public async follow(req: Request, res: Response) {
     try {
-      const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
-        {
-          $push: {
-            following: req.body.following,
-          },
+      const me = await User.findById({ _id: req.body.token._id });
+      console.log(me);
+      if (me && req.body.token._id != req.params.userId) {
+        let query = {};
+        if (me.following.includes(req.params.userId)) {
+          query = {
+            $pull: {
+              following: req.params.userId,
+            },
+          };
+        } else {
+          query = {
+            $push: {
+              following: req.params.userId,
+            },
+          };
         }
-      );
-      if (user) {
-        return res.status(200).json({ message: "Ok" });
-      }
-      return res.status(400).json({ message: "Error. Check console log." });
-    } catch (error) {
-      console.log(error);
-      return res.status(400).json({ message: "Error. Check console log." });
-    }
-  }
-
-  public async unfollow(req: Request, res: Response) {
-    try {
-      const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
-        {
-          $pull: {
-            following: req.body.following,
-          },
+        console.log(query);
+        const user = await User.findOneAndUpdate(
+          { _id: req.body.token._id },
+          query
+        );
+        if (user) {
+          return res.status(200).json({ message: "Ok" });
         }
-      );
-      if (user) {
-        return res.status(200).json({ message: "Ok" });
       }
       return res.status(400).json({ message: "Error. Check console log." });
     } catch (error) {
@@ -154,7 +149,7 @@ class UserPutController {
   public async subscribeUnsubscribeToNewsLetter(req: Request, res: Response) {
     try {
       const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
+        { _id: req.body.token._id },
         {
           subscribedToNewsLetter: req.body.subscribedToNewsLetter,
         }

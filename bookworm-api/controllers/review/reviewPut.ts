@@ -23,7 +23,7 @@ class ReviewPutController {
           query
         );
         if (like) {
-          return res.status(400).json({ message: "Ok" });
+          return res.status(200).json({ message: "Ok" });
         }
       }
       return res.status(404).json({ message: "Review not found." });
