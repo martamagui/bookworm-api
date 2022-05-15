@@ -48,6 +48,13 @@ export class UserRoutes {
         UserGetController.byName(req, res);
       }
     );
+    this.router.get(
+      "/profile/saved/posts",
+      userExtractor,
+      (req: Request, res: Response) => {
+        UserGetController.mySavedPosts(req, res);
+      }
+    );
     //Utils
     this.router.get(
       "/user/is-username-taken/:userName",

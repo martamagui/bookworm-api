@@ -54,11 +54,32 @@ class UserGetController {
       return res.status(400).json({ message: "Error. Check console log." });
     }
   }
+
   public async myProfile(req: Request, res: Response) {
     try {
       const user = await User.findById(req.params.userId);
       if (user) {
         return res.status(200).json(user);
+      }
+      return res.status(404).json({ message: "User not found" });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Error. Check console log." });
+    }
+  }
+
+  public async mySavedPosts(req: Request, res: Response) {
+    try {
+      const user = await User.findById(req.body.token._id)
+        .select(["savedReviewsIds"])
+        .populate({
+          path: "savedReviewsIds",
+          model: Review,
+          select: { id: 1, image: 1 },
+        });
+      if (user) {
+        let savedReviews = user.savedReviewsIds;
+        return res.status(200).json(savedReviews);
       }
       return res.status(404).json({ message: "User not found" });
     } catch (error) {
