@@ -19,7 +19,7 @@ export class ReviewRoutes {
   }
 
   private gets() {
-    this.router.get("/review", (req: Request, res: Response) => {
+    this.router.get("/review", userExtractor, (req: Request, res: Response) => {
       ReviewGetController.getAll(req, res);
     });
 
