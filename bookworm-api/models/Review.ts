@@ -6,7 +6,6 @@ export interface Review extends Document {
   bookAuthor: string;
   score: number;
   image: string;
-  amazonLink: string;
   reviewDescription: string;
   date: string | Date;
   likes: [string];

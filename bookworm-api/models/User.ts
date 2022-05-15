@@ -16,7 +16,6 @@ export interface User extends Document {
   description: string;
   avatar: string;
   banner: string;
-  reviews: [string];
   following: [string];
   //Other
   subscribedToNewsLetter: boolean;
@@ -66,10 +65,6 @@ const userSchema = new Schema({
   },
   banner: {
     type: String,
-    required: true,
-  },
-  reviews: {
-    type: [String],
     required: true,
   },
   following: {

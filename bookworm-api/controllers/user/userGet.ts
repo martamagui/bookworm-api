@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 //Inner imports
 import User from "../../models/User";
+import Review from "../../models/Review";
 
 class UserGetController {
   private limitedInformation = [
@@ -9,7 +10,6 @@ class UserGetController {
     "description",
     "avatar",
     "following",
-    "reviews",
   ];
   private listInformation = ["_id", "userName", "avatar"];
   //Individual
@@ -18,8 +18,24 @@ class UserGetController {
       const user = await User.findById(req.params.userId).select(
         this.limitedInformation
       );
+      const userPost = await Review.find({
+        userId: req.params.userId,
+      });
+      const followers = await User.find({
+        following: req.params.userId,
+      }).count();
       if (user) {
-        return res.status(200).json(user);
+        let response = {
+          _id: user?.id,
+          userName: user?.userName,
+          description: user?.description,
+          avatar: user?.avatar,
+          followingAmount: user?.following.length,
+          followers: followers,
+          reviews: userPost,
+        };
+
+        return res.status(200).json(response);
       }
       return res.status(404).json({ message: "User not found" });
     } catch (error) {
