@@ -20,7 +20,17 @@ class UserGetController {
       );
       const userPost = await Review.find({
         userId: req.params.userId,
+      }).select(["_id", "image"]);
+
+      let postList: { id: any; image: any }[] = [];
+      userPost.forEach((element) => {
+        let post = {
+          id: element._id,
+          image: element.image,
+        };
+        postList.push(post);
       });
+
       const followers = await User.find({
         following: req.params.userId,
       }).count();
@@ -33,6 +43,7 @@ class UserGetController {
           followingAmount: user?.following.length,
           followers: followers,
           reviews: userPost,
+          isMe: user?.id == req.body.token._id,
         };
 
         return res.status(200).json(response);

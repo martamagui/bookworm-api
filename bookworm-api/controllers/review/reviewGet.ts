@@ -16,6 +16,7 @@ class ReviewGetController {
       const savedReviews = await User.findById(req.body.token._id);
       if (reviews) {
         let reviewList: {
+          id: any;
           userId: any;
           boookTitle: any;
           bookAuthor: any;
@@ -28,8 +29,11 @@ class ReviewGetController {
           saved: boolean | undefined;
           hastags: any;
         }[] = [];
+
         reviews.forEach((element) => {
+          console.log(element._id.toString());
           let review = {
+            id: element._id,
             userId: element.userId,
             boookTitle: element.boookTitle,
             bookAuthor: element.bookAuthor,
@@ -65,7 +69,7 @@ class ReviewGetController {
       const savedReviews = await User.findById(req.body.token._id);
       if (review) {
         let object = {
-          _id: review._id,
+          id: review._id,
           userId: review.userId,
           boookTitle: review.boookTitle,
           bookAuthor: review.bookAuthor,

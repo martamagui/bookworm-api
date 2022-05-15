@@ -24,13 +24,16 @@ export class UserRoutes {
     this.router.get("/user", (req: Request, res: Response) => {
       UserGetController.unfiltered(req, res);
     });
-    this.router.get("/user/:userId", (req: Request, res: Response) => {
-      UserGetController.byId(req, res);
-    });
     this.router.get(
-      "/user/myProfile/:userId",
+      "/user/:userId",
       userExtractor,
-      userValidatorParams,
+      (req: Request, res: Response) => {
+        UserGetController.byId(req, res);
+      }
+    );
+    this.router.get(
+      "/user/myProfile",
+      userExtractor,
       (req: Request, res: Response) => {
         UserGetController.myProfile(req, res);
       }
