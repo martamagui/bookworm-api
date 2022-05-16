@@ -49,6 +49,9 @@ export class ReviewRoutes {
     this.router.get("/review/user/:userId", (req: Request, res: Response) => {
       ReviewGetController.getByUser(req, res);
     });
+    this.router.get("/top-books", (req: Request, res: Response) => {
+      ReviewGetController.getTopBooks(req, res);
+    });
   }
 
   private post() {

@@ -18,7 +18,7 @@ class ReviewGetController {
         let reviewList: {
           id: any;
           userId: any;
-          boookTitle: any;
+          bookTitle: any;
           bookAuthor: any;
           score: any;
           image: any;
@@ -31,11 +31,10 @@ class ReviewGetController {
         }[] = [];
 
         reviews.forEach((element) => {
-          console.log(element._id.toString());
           let review = {
             id: element._id,
             userId: element.userId,
-            boookTitle: element.boookTitle,
+            bookTitle: element.bookTitle,
             bookAuthor: element.bookAuthor,
             score: element.score,
             image: element.image,
@@ -46,6 +45,7 @@ class ReviewGetController {
             saved: savedReviews?.savedReviewsIds.includes(element._id),
             hastags: element.hastags,
           };
+          console.log(review);
           reviewList.push(review);
         });
         return res.status(200).json(reviewList);
@@ -69,9 +69,9 @@ class ReviewGetController {
       const savedReviews = await User.findById(req.body.token._id);
       if (review) {
         let object = {
-          id: review._id,
+          _id: review._id,
           userId: review.userId,
-          boookTitle: review.boookTitle,
+          bookTitle: review.bookTitle,
           bookAuthor: review.bookAuthor,
           score: review.score,
           image: review.image,
@@ -155,6 +155,41 @@ class ReviewGetController {
       console.log(error);
       return res.status(400).json({ message: "Error. Check console log." });
     }
+  }
+
+  public async getTopBooks(req: Request, res: Response) {
+    try {
+      const oneMonthAgo = this.oneMonthAgo();
+      console.log(oneMonthAgo);
+      const reviews: { _id: any; reviews: any[] }[] = await Review.aggregate([
+        { $sort: { date: -1 } },
+        {
+          $group: {
+            _id: "$bookTitle",
+            reviews: { $push: "$$ROOT" },
+            total: { $sum: "$reviews" },
+          },
+        },
+        { $limit: 3 },
+      ]);
+      if (reviews) {
+        return res.status(200).json(reviews);
+      }
+      return res.status(404).json({ message: "Reviews not found" });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Error. Check console log." });
+    }
+  }
+
+  oneMonthAgo() {
+    var d = new Date();
+    var targetMonth = d.getMonth() - 1;
+    d.setMonth(targetMonth);
+    if (d.getMonth() !== targetMonth % 12) {
+      d.setDate(0); // last day of previous month
+    }
+    return d;
   }
 }
 

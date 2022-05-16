@@ -2,7 +2,7 @@ import { model, Schema, Document } from "mongoose";
 
 export interface Review extends Document {
   userId: string;
-  boookTitle: string;
+  bookTitle: string;
   bookAuthor: string;
   score: number;
   image: string;
@@ -17,7 +17,7 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
-  boookTitle: {
+  bookTitle: {
     type: String,
     required: true,
   },
@@ -33,10 +33,6 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
-  amazonLink: {
-    type: String,
-    required: true,
-  },
   reviewDescription: {
     type: String,
     required: true,
@@ -44,7 +40,7 @@ const reviewSchema = new Schema({
   date: {
     type: String,
     required: true,
-    default: Date.now,
+    default: new Date(),
   },
   likes: {
     type: [String],
