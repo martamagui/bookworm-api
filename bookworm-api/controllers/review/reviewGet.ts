@@ -167,9 +167,10 @@ class ReviewGetController {
           $group: {
             _id: "$bookTitle",
             reviews: { $push: "$$ROOT" },
-            total: { $sum: "$reviews" },
+            total: { $sum: 1 },
           },
         },
+        { $sort: { total: -1 } },
         { $limit: 3 },
       ]);
       if (reviews) {
