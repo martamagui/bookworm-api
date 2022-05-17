@@ -4,6 +4,7 @@ import Review from "../../models/Review";
 import User from "../../models/User";
 
 class ReviewGetController {
+  private gridSelection = ["_id", "image", "bookTitle"];
   public async getAll(req: Request, res: Response) {
     try {
       const reviews = await Review.find()
@@ -45,7 +46,6 @@ class ReviewGetController {
             saved: savedReviews?.savedReviewsIds.includes(element._id),
             hastags: element.hastags,
           };
-          console.log(review);
           reviewList.push(review);
         });
         return res.status(200).json(reviewList);
@@ -115,8 +115,10 @@ class ReviewGetController {
   public async getByTitle(req: Request, res: Response) {
     try {
       const reviews = await Review.find({
-        boookTitle: { $regex: req.params.bookTitle, $options: "i" },
-      }).sort({ date: -1 });
+        bookTitle: { $regex: req.params.bookTitle, $options: "i" },
+      })
+        .sort({ date: -1 })
+        .select(this.gridSelection);
       if (reviews) {
         return res.status(200).json(reviews);
       }
@@ -131,7 +133,9 @@ class ReviewGetController {
     try {
       const reviews = await Review.find({
         bookAuthor: { $regex: req.params.bookAuthor, $options: "i" },
-      }).sort({ date: -1 });
+      })
+        .sort({ date: -1 })
+        .select(this.gridSelection);
       if (reviews) {
         return res.status(200).json(reviews);
       }
@@ -146,7 +150,9 @@ class ReviewGetController {
     try {
       const reviews = await Review.find({
         hastags: req.params.hastags,
-      }).sort({ date: -1 });
+      })
+        .sort({ date: -1 })
+        .select(this.gridSelection);
       if (reviews) {
         return res.status(200).json(reviews);
       }
@@ -159,8 +165,8 @@ class ReviewGetController {
 
   public async getTopBooks(req: Request, res: Response) {
     try {
+      //TODO limit to one month ago
       const oneMonthAgo = this.oneMonthAgo();
-      console.log(oneMonthAgo);
       const reviews: { _id: any; reviews: any[] }[] = await Review.aggregate([
         { $sort: { date: -1 } },
         {
