@@ -32,7 +32,7 @@ export class UserRoutes {
       }
     );
     this.router.get(
-      "/user/myProfile",
+      "/profile/my-profile",
       userExtractor,
       (req: Request, res: Response) => {
         UserGetController.myProfile(req, res);

@@ -57,9 +57,38 @@ class UserGetController {
 
   public async myProfile(req: Request, res: Response) {
     try {
-      const user = await User.findById(req.params.userId);
+      const user = await User.findById(req.body.token._id).select(
+        this.limitedInformation
+      );
+      const userPost = await Review.find({
+        userId: req.body.token._id,
+      }).select(["_id", "image"]);
+
+      let postList: { id: any; image: any }[] = [];
+      userPost.forEach((element) => {
+        let post = {
+          id: element._id,
+          image: element.image,
+        };
+        postList.push(post);
+      });
+
+      const followers = await User.find({
+        following: req.params.userId,
+      }).count();
+
       if (user) {
-        return res.status(200).json(user);
+        let response = {
+          _id: user?.id,
+          userName: user?.userName,
+          description: user?.description,
+          avatar: user?.avatar,
+          followingAmount: user?.following.length,
+          followers: followers,
+          reviews: userPost,
+          isMe: user?.id == req.body.token._id,
+        };
+        return res.status(200).json(response);
       }
       return res.status(404).json({ message: "User not found" });
     } catch (error) {
