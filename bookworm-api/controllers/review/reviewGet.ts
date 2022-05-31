@@ -150,6 +150,13 @@ class ReviewGetController {
     try {
       const reviews = await Review.aggregate([
         { $match: { hashtags: { $in: [req.params.hashtag] } } },
+        {
+          $project: {
+            _id: "$_id",
+            image: 1,
+            bookTitle: 1,
+          },
+        },
       ]).sort({ date: -1 });
       if (reviews) {
         return res.status(200).json(reviews);

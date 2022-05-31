@@ -71,7 +71,7 @@ export class UserRoutes {
   }
 
   private post() {
-    this.router.post("/user", userExtractor, (req: Request, res: Response) => {
+    this.router.post("/user", (req: Request, res: Response) => {
       UserPostController.userPost(req, res);
     });
     this.router.post("/user/login", (req: Request, res: Response) => {
