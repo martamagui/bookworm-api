@@ -9,6 +9,7 @@ class UserGetController {
     "userName",
     "description",
     "avatar",
+    "banner",
     "following",
   ];
   private listInformation = ["_id", "userName", "avatar"];
@@ -39,6 +40,7 @@ class UserGetController {
           _id: user?.id,
           userName: user?.userName,
           description: user?.description,
+          banner: user?.banner,
           avatar: user?.avatar,
           followingAmount: user?.following.length,
           followers: followers,
