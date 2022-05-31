@@ -148,11 +148,9 @@ class ReviewGetController {
 
   public async getByHastag(req: Request, res: Response) {
     try {
-      const reviews = await Review.find({
-        hastags: req.params.hastags,
-      })
-        .sort({ date: -1 })
-        .select(this.gridSelection);
+      const reviews = await Review.aggregate([
+        { $match: { hashtags: { $in: [req.params.hashtag] } } },
+      ]).sort({ date: -1 });
       if (reviews) {
         return res.status(200).json(reviews);
       }

@@ -32,14 +32,15 @@ export class ReviewRoutes {
     );
 
     this.router.get(
-      "/review/author/:bookAuthor",
+      "/find/author/:bookAuthor",
       (req: Request, res: Response) => {
         ReviewGetController.getByBookAuthor(req, res);
       }
     );
-    this.router.get("/review/hastag/:hastag", (req: Request, res: Response) => {
+    this.router.get("/find/hastag/:hastag", (req: Request, res: Response) => {
       ReviewGetController.getByHastag(req, res);
     });
+
     this.router.get(
       "/review/title/:bookTitle",
       (req: Request, res: Response) => {
