@@ -34,8 +34,16 @@ class UserGetController {
 
       const followers = await User.find({
         following: req.params.userId,
-      }).count();
+      });
+
       if (user) {
+        let followed = false;
+        followers.forEach((element) => {
+          if (element._id.toString() === req.body.token._id) {
+            followed = true;
+            return;
+          }
+        });
         let response = {
           _id: user?.id,
           userName: user?.userName,
@@ -43,9 +51,10 @@ class UserGetController {
           banner: user?.banner,
           avatar: user?.avatar,
           followingAmount: user?.following.length,
-          followers: followers,
+          followers: followers.length,
           reviews: userPost,
           isMe: user?.id == req.body.token._id,
+          followed: followed,
         };
 
         return res.status(200).json(response);
@@ -77,7 +86,7 @@ class UserGetController {
 
       const followers = await User.find({
         following: req.params.userId,
-      }).count();
+      });
 
       if (user) {
         let response = {
@@ -87,7 +96,7 @@ class UserGetController {
           avatar: user?.avatar,
           banner: user?.banner,
           followingAmount: user?.following.length,
-          followers: followers,
+          followers: followers.length,
           reviews: userPost,
           isMe: user?.id == req.body.token._id,
         };
