@@ -32,6 +32,13 @@ class ReviewGetController {
         }[] = [];
 
         reviews.forEach((element) => {
+          let liked = false;
+          element.likes.forEach((element) => {
+            if (element === req.body.token._id) {
+              liked = true;
+              return;
+            }
+          });
           let review = {
             id: element._id,
             userId: element.userId,
@@ -42,7 +49,7 @@ class ReviewGetController {
             reviewDescription: element.reviewDescription,
             date: element.date,
             likesAmount: element.likes.length,
-            liked: element.likes.includes(req.body.token),
+            liked: liked,
             saved: savedReviews?.savedReviewsIds.includes(element._id),
             hastags: element.hastags,
           };
@@ -68,6 +75,13 @@ class ReviewGetController {
       });
       const savedReviews = await User.findById(req.body.token._id);
       if (review) {
+        let liked = false;
+        review.likes.forEach((element) => {
+          if (element === req.body.token._id) {
+            liked = true;
+            return;
+          }
+        });
         let object = {
           _id: review._id,
           userId: review.userId,
@@ -78,9 +92,10 @@ class ReviewGetController {
           reviewDescription: review.reviewDescription,
           date: review.date,
           likesAmount: review.likes.length,
-          liked: review.likes.includes(req.body.token),
+          liked: liked,
           saved: savedReviews?.savedReviewsIds.includes(review._id),
           hastags: review.hastags,
+          me: req.body.token._id,
         };
         return res.status(200).json(object);
       }
