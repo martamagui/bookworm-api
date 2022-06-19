@@ -77,9 +77,8 @@ export class ReviewRoutes {
 
   private delete() {
     this.router.delete(
-      "/review/:chatId",
+      "/review/:reviewId",
       userExtractor,
-      userValidatorBody,
       (req: Request, res: Response) => {
         ReviewDeleteController.delete(req, res);
       }
