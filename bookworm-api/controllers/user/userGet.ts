@@ -85,6 +85,7 @@ class UserGetController {
           userName: user?.userName,
           description: user?.description,
           avatar: user?.avatar,
+          banner: user?.banner,
           followingAmount: user?.following.length,
           followers: followers,
           reviews: userPost,
